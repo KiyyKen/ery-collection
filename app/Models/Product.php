@@ -19,8 +19,6 @@ class Product extends Model
         'price',
         'stock',
         'unit',
-        'predicted_label',
-        'last_classified_at',
     ];
 
     protected function casts(): array

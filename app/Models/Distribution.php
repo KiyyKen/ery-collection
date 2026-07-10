@@ -26,8 +26,12 @@ class Distribution extends Model
         ];
     }
 
+    /**
+     * Produk tetap ditampilkan (withTrashed) meskipun sudah di-soft-delete,
+     * supaya histori distribusi lama tidak error saat produknya sudah dihapus.
+     */
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class)->withTrashed();
     }
 }

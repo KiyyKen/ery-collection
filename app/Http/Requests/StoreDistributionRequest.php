@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreDistributionRequest extends FormRequest
 {
@@ -23,7 +24,10 @@ class StoreDistributionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id' => ['required', 'exists:products,id'],
+            'product_id' => [
+                'required',
+                Rule::exists('products', 'id')->where(fn ($query) => $query->whereNull('deleted_at')),
+            ],
             'distribution_date' => ['required', 'date'],
             'quantity' => ['required', 'integer', 'min:1'],
             'notes' => ['nullable', 'string'],

@@ -6,6 +6,8 @@ use App\Http\Requests\StoreDistributionRequest;
 use App\Http\Requests\UpdateDistributionRequest;
 use App\Models\Distribution;
 use App\Models\Product;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DistributionController extends Controller
@@ -13,13 +15,46 @@ class DistributionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $distributions = Distribution::with('product')
-            ->latest('distribution_date')
-            ->paginate(15);
+        $search = $request->query('search');
 
-        return view('distributions.index', compact('distributions'));
+        $distributions = Distribution::with('product')
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->whereHas('product', function ($productQuery) use ($search) {
+                        $productQuery->where('name', 'like', "%{$search}%")
+                            ->orWhere('category', 'like', "%{$search}%");
+                    });
+
+                    if ($date = $this->parseSearchDate($search)) {
+                        $q->orWhereDate('distribution_date', $date);
+                    }
+                });
+            })
+            ->latest('distribution_date')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('distributions.index', compact('distributions', 'search'));
+    }
+
+    /**
+     * Coba pecah string pencarian jadi tanggal yang valid (mis. "2026-02-01", "01/02/2026").
+     * Hanya dicoba kalau polanya memang menyerupai tanggal, biar kata kunci non-tanggal
+     * tidak salah tafsir jadi tanggal oleh Carbon::parse().
+     */
+    private function parseSearchDate(string $value): ?string
+    {
+        if (! preg_match('/\d{1,4}[-\/]\d{1,2}([-\/]\d{1,4})?/', $value)) {
+            return null;
+        }
+
+        try {
+            return Carbon::parse($value)->toDateString();
+        } catch (\Throwable) {
+            return null;
+        }
     }
 
     /**
@@ -55,6 +90,8 @@ class DistributionController extends Controller
      */
     public function edit(Distribution $distribution)
     {
+        $distribution->load('product');
+
         return view('distributions.edit', compact('distribution'));
     }
 

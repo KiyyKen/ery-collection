@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProductRequest extends FormRequest
 {
@@ -22,7 +23,12 @@ class StoreProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => ['required', 'string', 'max:50', 'unique:products,code'],
+            'code' => [
+                'required',
+                'string',
+                'max:50',
+                Rule::unique('products', 'code')->where(fn ($query) => $query->whereNull('deleted_at')),
+            ],
             'name' => ['required', 'string', 'max:150'],
             'category' => ['required', 'string', 'max:100'],
             'size' => ['required', 'string', 'max:20'],

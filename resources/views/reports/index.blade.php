@@ -6,7 +6,9 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-4">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+
+            <x-flash-messages />
 
             <div class="bg-surface border border-dashed border-denim/30 rounded-md p-6 print:hidden">
                 <form method="GET" action="{{ route('reports.index') }}" class="flex flex-wrap items-end gap-4">
@@ -33,40 +35,44 @@
                     </p>
                 </div>
 
-                <table class="w-full text-sm">
-                    <thead>
-                        <tr class="text-left text-ink/50 border-b border-denim/10 font-sans">
-                            <th class="py-2 pr-4 font-medium">Tanggal</th>
-                            <th class="py-2 pr-4 font-medium">Produk</th>
-                            <th class="py-2 pr-4 font-medium">Kategori</th>
-                            <th class="py-2 pr-4 font-medium">Ukuran</th>
-                            <th class="py-2 font-medium text-right">Jumlah</th>
-                        </tr>
-                    </thead>
-                    <tbody class="font-mono text-ink">
-                        @forelse ($distributions as $distribution)
-                            <tr class="border-b last:border-0 border-denim/10">
-                                <td class="py-2 pr-4 whitespace-nowrap">{{ $distribution->distribution_date->translatedFormat('d M Y') }}</td>
-                                <td class="py-2 pr-4 font-sans">{{ $distribution->product->name }}</td>
-                                <td class="py-2 pr-4 font-sans text-ink/60">{{ $distribution->product->category }}</td>
-                                <td class="py-2 pr-4 font-sans text-ink/60">{{ $distribution->product->size }}</td>
-                                <td class="py-2 text-right">{{ $distribution->quantity }} {{ $distribution->product->unit }}</td>
+                <div class="overflow-x-auto -mx-6 sm:mx-0">
+                    <table class="min-w-[640px] w-full text-sm">
+                        <thead class="bg-denim text-white font-sans print:bg-transparent print:text-ink print:border-b-2 print:border-ink/30">
+                            <tr class="text-left">
+                                <th class="py-3 px-4 font-medium print:px-0">Tanggal</th>
+                                <th class="py-3 px-4 font-medium print:px-2">Produk</th>
+                                <th class="py-3 px-4 font-medium print:px-2">Kategori</th>
+                                <th class="py-3 px-4 font-medium print:px-2">Ukuran</th>
+                                <th class="py-3 px-4 font-medium text-right print:px-0">Jumlah</th>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5" class="py-6 text-center text-ink/40 font-sans">Tidak ada data distribusi pada periode ini.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                    @if ($distributions->isNotEmpty())
-                        <tfoot>
-                            <tr class="border-t border-denim/20 font-sans font-semibold text-ink">
-                                <td colspan="4" class="py-2 pr-4 text-right">Total</td>
-                                <td class="py-2 text-right font-mono">{{ $distributions->sum('quantity') }}</td>
-                            </tr>
-                        </tfoot>
-                    @endif
-                </table>
+                        </thead>
+                        <tbody class="font-mono text-sm text-ink">
+                            @forelse ($distributions as $distribution)
+                                <tr class="odd:bg-cream even:bg-surface border-b border-denim/10 print:bg-transparent print:border-ink/10">
+                                    <td class="py-2.5 px-4 whitespace-nowrap print:px-0">{{ $distribution->distribution_date->translatedFormat('d M Y') }}</td>
+                                    <td class="py-2.5 px-4 font-sans print:px-2">{{ $distribution->product->name }}</td>
+                                    <td class="py-2.5 px-4 font-sans text-ink/60 print:px-2">{{ $distribution->product->category }}</td>
+                                    <td class="py-2.5 px-4 font-sans text-ink/60 print:px-2">{{ $distribution->product->size }}</td>
+                                    <td class="py-2.5 px-4 text-right print:px-0">{{ $distribution->quantity }} {{ $distribution->product->unit }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="py-6 text-center text-ink/40 font-sans">
+                                        Tidak ada data distribusi pada periode ini.
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                        @if ($distributions->isNotEmpty())
+                            <tfoot>
+                                <tr class="border-t-2 border-denim/20 font-sans font-semibold text-ink print:border-ink/30">
+                                    <td colspan="4" class="py-3 px-4 text-right print:px-2">Total</td>
+                                    <td class="py-3 px-4 text-right font-mono print:px-0">{{ $distributions->sum('quantity') }}</td>
+                                </tr>
+                            </tfoot>
+                        @endif
+                    </table>
+                </div>
             </div>
         </div>
     </div>

@@ -14,7 +14,7 @@
                     @include('products._form')
 
                     <div class="flex items-center justify-end gap-4 mt-6">
-                        <a href="{{ route('products.index') }}" class="font-sans text-sm text-ink/60 hover:text-denim">Batal</a>
+                        <a href="{{ route('products.index') }}" class="font-sans text-sm text-ink/60 hover:text-denim hover:underline focus:outline-none focus-visible:underline transition-colors">Batal</a>
                         <x-primary-button>{{ __('Simpan Perubahan') }}</x-primary-button>
                     </div>
                 </form>
