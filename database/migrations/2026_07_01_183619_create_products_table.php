@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('size');
             $table->decimal('price', 12, 2);
             $table->unsignedInteger('stock')->default(0);
-            $table->string('unit')->default('pcs');
+            $table->string('unit')->default('lusin');
             $table->enum('predicted_label', ['Laris', 'Tidak Laris'])->nullable();
             $table->timestamp('last_classified_at')->nullable();
             $table->timestamps();

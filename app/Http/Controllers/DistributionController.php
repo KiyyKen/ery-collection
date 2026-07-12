@@ -17,7 +17,9 @@ class DistributionController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->query('search');
+        $search = $request->has('search') ? $request->query('search') : session('distribution_search');
+
+        session(['distribution_search' => $search]);
 
         $distributions = Distribution::with('product')
             ->when($search, function ($query, $search) {
@@ -34,7 +36,11 @@ class DistributionController extends Controller
             })
             ->latest('distribution_date')
             ->paginate(10)
-            ->withQueryString();
+            ->appends(['search' => $search]);
+
+        if ($request->ajax()) {
+            return view('distributions._table', compact('distributions', 'search'));
+        }
 
         return view('distributions.index', compact('distributions', 'search'));
     }

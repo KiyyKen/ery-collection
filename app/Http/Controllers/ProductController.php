@@ -14,7 +14,9 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->query('search');
+        $search = $request->has('search') ? $request->query('search') : session('product_search');
+
+        session(['product_search' => $search]);
 
         $products = Product::query()
             ->when($search, function ($query, $search) {
@@ -27,7 +29,11 @@ class ProductController extends Controller
             })
             ->orderBy('name')
             ->paginate(10)
-            ->withQueryString();
+            ->appends(['search' => $search]);
+
+        if ($request->ajax()) {
+            return view('products._table', compact('products', 'search'));
+        }
 
         return view('products.index', compact('products', 'search'));
     }
