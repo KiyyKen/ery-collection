@@ -10,36 +10,29 @@ use Illuminate\Database\Seeder;
 class DistributionSeeder extends Seeder
 {
     /**
-     * Movement profile per product code: [jumlah_transaksi, qty_min, qty_max].
-     * Dipakai hanya untuk membangkitkan data dummy yang polanya jelas,
-     * bukan disimpan ke database.
+     * Profil pergerakan per produk, urutannya mengikuti urutan produk pada ProductSeeder:
+     * [jumlah_transaksi, qty_min, qty_max] dalam satuan lusin.
+     * Rentang sengaja dijaga tidak tumpang tindih antar tingkat pergerakan
+     * (Tinggi/Sedang/Rendah) agar label Laris/Tidak Laris tetap konsisten
+     * berapa pun hasil acak kuantitas per transaksi. Dipakai hanya untuk
+     * membangkitkan data dummy, bukan disimpan ke database.
      */
     private array $movementProfiles = [
-        // Laris (pergerakan tinggi) - ukuran kecil biasanya paling sering dipesan ulang
-        'CPD-001' => [9, 20, 40],
-        'CPD-002' => [8, 20, 40],
-        'CTR-001' => [10, 20, 40],
-        'CTR-002' => [9, 20, 40],
-        'CKL-001' => [8, 20, 40],
-        'CKL-002' => [9, 20, 40],
-
-        // Sedang
-        'CLP-001' => [6, 10, 20],
-        'CLP-002' => [5, 10, 20],
-        'CPD-003' => [6, 10, 20],
-        'CPD-004' => [5, 10, 20],
-        'CTR-003' => [6, 10, 20],
-        'CKL-003' => [5, 10, 20],
-        'CKL-004' => [6, 10, 20],
-
-        // Tidak laris (pergerakan rendah) - ukuran besar lebih jarang dipesan
-        'CLP-003' => [3, 3, 10],
-        'CLP-004' => [2, 3, 10],
-        'CLP-005' => [2, 3, 10],
-        'CPD-005' => [3, 3, 10],
-        'CTR-004' => [2, 3, 10],
-        'CTR-005' => [2, 3, 10],
-        'CKL-005' => [3, 3, 10],
+        [10, 4, 6], // 1. Celana Kolor Cargo Twill Printing - Tinggi
+        [9, 4, 6],  // 2. Celana Kolor Polos Twill - Tinggi
+        [10, 4, 6], // 3. Celana Kolor Polos Despo Hitam - Tinggi
+        [5, 1, 2],  // 4. Celana Training Panjang Lotto - Sedang
+        [4, 1, 2],  // 5. Celana Training Panjang Sogo Polos - Sedang
+        [9, 4, 6],  // 6. Celana Pendek Kolor Kodorai - Tinggi
+        [2, 1, 2],  // 7. Celana Training Panjang Scuba Resleting Hitam - Rendah
+        [2, 1, 2],  // 8. Celana Training Panjang Lotto Printing - Rendah
+        [8, 4, 6],  // 9. Celana Anak Cotton Stretch - Tinggi
+        [3, 1, 2],  // 10. Celana Levis Pendek Anak - Rendah
+        [5, 1, 2],  // 11. Celana Anak Embos Hitam - Sedang
+        [4, 1, 2],  // 12. Celana Pendek Anak Katun Printing - Sedang
+        [2, 1, 2],  // 13. Celana Panjang Chino Anak Cotton Stretch - Rendah
+        [5, 1, 2],  // 14. Celana Levis Anak Badjatex Hitam - Sedang
+        [3, 1, 2],  // 15. Celana Panjang Levis Anak Badjatex - Rendah
     ];
 
     /**
@@ -47,11 +40,15 @@ class DistributionSeeder extends Seeder
      */
     public function run(): void
     {
+        // Seed tetap supaya hasil migrate:fresh --seed selalu identik dan penelitian
+        // dapat direproduksi (kuantitas & tanggal per transaksi tidak lagi berbeda-beda antar run).
+        fake()->seed(12345);
+
         $periodStart = Carbon::create(2026, 1, 1);
         $periodEnd = Carbon::create(2026, 6, 30);
 
-        Product::all()->each(function (Product $product) use ($periodStart, $periodEnd) {
-            [$transactionCount, $qtyMin, $qtyMax] = $this->movementProfiles[$product->code] ?? [4, 5, 15];
+        Product::orderBy('id')->get()->each(function (Product $product, int $index) use ($periodStart, $periodEnd) {
+            [$transactionCount, $qtyMin, $qtyMax] = $this->movementProfiles[$index] ?? [4, 1, 2];
 
             for ($i = 0; $i < $transactionCount; $i++) {
                 $randomDays = fake()->numberBetween(0, $periodStart->diffInDays($periodEnd));

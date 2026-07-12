@@ -8,48 +8,42 @@ use Illuminate\Database\Seeder;
 class ProductSeeder extends Seeder
 {
     /**
+     * Data produk aktual Toko Ery Collection (hasil wawancara pemilik toko).
+     * Seluruh stok dicatat dalam satuan lusin.
+     */
+    private array $products = [
+        ['name' => 'Celana Kolor Cargo Twill Printing', 'category' => 'Celana Kolor Cargo', 'size' => '62', 'price' => 312000, 'stock' => 15],
+        ['name' => 'Celana Kolor Polos Twill', 'category' => 'Celana Kolor', 'size' => '62', 'price' => 288000, 'stock' => 18],
+        ['name' => 'Celana Kolor Polos Despo Hitam', 'category' => 'Celana Kolor', 'size' => '62', 'price' => 276000, 'stock' => 12],
+        ['name' => 'Celana Training Panjang Lotto', 'category' => 'Celana Training Panjang', 'size' => '110', 'price' => 300000, 'stock' => 10],
+        ['name' => 'Celana Training Panjang Sogo Polos', 'category' => 'Celana Training Panjang', 'size' => '72', 'price' => 336000, 'stock' => 14],
+        ['name' => 'Celana Pendek Kolor Kodorai', 'category' => 'Celana Pendek Kolor', 'size' => '62', 'price' => 360000, 'stock' => 20],
+        ['name' => 'Celana Training Panjang Scuba Resleting Hitam', 'category' => 'Celana Training Panjang', 'size' => '62', 'price' => 540000, 'stock' => 8],
+        ['name' => 'Celana Training Panjang Lotto Printing', 'category' => 'Celana Training Panjang', 'size' => 'Dewasa', 'price' => 720000, 'stock' => 6],
+        ['name' => 'Celana Anak Cotton Stretch', 'category' => 'Celana Anak', 'size' => 'All Size', 'price' => 660000, 'stock' => 16],
+        ['name' => 'Celana Levis Pendek Anak', 'category' => 'Celana Levis Pendek Anak', 'size' => 'All Size', 'price' => 720000, 'stock' => 9],
+        ['name' => 'Celana Anak Embos Hitam', 'category' => 'Celana Anak', 'size' => 'All Size', 'price' => 480000, 'stock' => 11],
+        ['name' => 'Celana Pendek Anak Katun Printing', 'category' => 'Celana Pendek Anak', 'size' => 'All Size', 'price' => 420000, 'stock' => 17],
+        ['name' => 'Celana Panjang Chino Anak Cotton Stretch', 'category' => 'Celana Chino Anak', 'size' => '112', 'price' => 900000, 'stock' => 5],
+        ['name' => 'Celana Levis Anak Badjatex Hitam', 'category' => 'Celana Levis Anak', 'size' => '1-6 Tahun', 'price' => 720000, 'stock' => 7],
+        ['name' => 'Celana Panjang Levis Anak Badjatex', 'category' => 'Celana Levis Anak', 'size' => '112', 'price' => 1080000, 'stock' => 4],
+    ];
+
+    /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $categories = ['Celana Panjang', 'Celana Pendek', 'Celana Training', 'Celana Kolor'];
-        $sizes = ['1-2 Tahun', '3-4 Tahun', '5-6 Tahun', '7-8 Tahun', '9-10 Tahun'];
-
-        $prefixes = [
-            'Celana Panjang' => 'CLP',
-            'Celana Pendek' => 'CPD',
-            'Celana Training' => 'CTR',
-            'Celana Kolor' => 'CKL',
-        ];
-
-        $basePrices = [
-            'Celana Panjang' => 35000,
-            'Celana Pendek' => 25000,
-            'Celana Training' => 28000,
-            'Celana Kolor' => 20000,
-        ];
-
-        $baseStocks = [
-            'Celana Panjang' => 150,
-            'Celana Pendek' => 180,
-            'Celana Training' => 200,
-            'Celana Kolor' => 220,
-        ];
-
-        foreach ($categories as $category) {
-            foreach ($sizes as $index => $size) {
-                $sequence = $index + 1;
-
-                Product::create([
-                    'code' => sprintf('%s-%03d', $prefixes[$category], $sequence),
-                    'name' => "{$category} Anak {$size}",
-                    'category' => $category,
-                    'size' => $size,
-                    'price' => $basePrices[$category] + ($index * 2000),
-                    'stock' => $baseStocks[$category] - ($index * 10),
-                    'unit' => 'pcs',
-                ]);
-            }
+        foreach ($this->products as $index => $product) {
+            Product::create([
+                'code' => sprintf('ERY-%03d', $index + 1),
+                'name' => $product['name'],
+                'category' => $product['category'],
+                'size' => $product['size'],
+                'price' => $product['price'],
+                'stock' => $product['stock'],
+                'unit' => 'lusin',
+            ]);
         }
     }
 }
