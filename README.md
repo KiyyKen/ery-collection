@@ -1,66 +1,169 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Distribusi Ery Collection
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Implementasi Sistem Distribusi untuk Memprediksi Produk Terlaris dengan Algoritma C4.5 Berbasis Website pada Toko Ery Collection**
 
-## About Laravel
+![PHP](https://img.shields.io/badge/PHP-%5E8.2-777BB4?logo=php&logoColor=white)
+![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?logo=laravel&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3-06B6D4?logo=tailwindcss&logoColor=white)
+![Alpine.js](https://img.shields.io/badge/Alpine.js-3-8BC0D0?logo=alpinedotjs&logoColor=white)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Deskripsi Singkat
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Aplikasi web untuk mengelola pencatatan distribusi barang keluar pada Toko Ery Collection (usaha grosir celana anak), sekaligus memprediksi produk terlaris menggunakan algoritma klasifikasi C4.5 berdasarkan data historis distribusi. Dibangun dengan Laravel 12 sebagai project skripsi (tugas akhir), dengan satu aktor pengguna (Admin/Pemilik Toko).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Latar Belakang
 
-## Learning Laravel
+Pencatatan distribusi barang di Toko Ery Collection selama ini dilakukan secara manual di buku catatan. Cara ini membuat data mudah hilang atau rusak, rekapitulasi memakan waktu lama, dan penentuan produk yang dianggap laris hanya mengandalkan ingatan serta perkiraan pribadi pemilik toko — tanpa dasar data yang objektif. Sistem ini dibangun untuk menggantikan proses tersebut dengan pencatatan digital yang terstruktur, dilengkapi analisis prediksi produk terlaris berbasis algoritma C4.5 agar keputusan pengisian ulang stok (restock) dapat diambil berdasarkan data historis, bukan perkiraan.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Preview
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+<!-- Screenshot Dashboard -->
+<!-- Screenshot Halaman Data Produk -->
+<!-- Screenshot Halaman Data Distribusi -->
+<!-- Screenshot Halaman Prediksi -->
+<!-- Screenshot Halaman Laporan -->
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Fitur Utama
 
-## Laravel Sponsors
+- **Autentikasi Admin** — login dan logout untuk satu akun Admin (Pemilik Toko).
+- **Dashboard** — ringkasan jumlah produk, jumlah distribusi, grafik distribusi 6 bulan terakhir, daftar produk terlaris, hasil prediksi terbaru, dan rekomendasi restock.
+- **Kelola Data Produk** — tambah, ubah, hapus (soft delete), dan pencarian produk secara live (tanpa reload halaman).
+- **Kelola Data Distribusi** — tambah, ubah, hapus, dan pencarian data barang keluar secara live, dengan stok produk yang disesuaikan otomatis setiap kali terjadi transaksi.
+- **Prediksi Produk Terlaris** — menjalankan analisis klasifikasi C4.5 terhadap data distribusi, menampilkan visualisasi pohon keputusan, nilai akurasi model, label prediksi tiap produk, dan rekomendasi restock untuk produk berlabel "Laris" dengan stok menipis.
+- **Laporan Distribusi** — laporan barang keluar per rentang tanggal, dengan opsi cetak melalui fitur print bawaan browser.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Algoritma C4.5
 
-### Premium Partners
+Prediksi produk terlaris dihitung menggunakan algoritma C4.5 yang diimplementasikan langsung dalam PHP (tanpa library machine learning eksternal). Setiap produk direpresentasikan oleh tiga atribut kategorikal — **kategori**, **ukuran**, dan **tingkat frekuensi distribusi** (hasil diskritisasi jumlah transaksi menjadi Rendah/Sedang/Tinggi) — dengan label kelas **Laris** atau **Tidak Laris** yang ditentukan dari perbandingan total kuantitas distribusi produk terhadap rata-rata keseluruhan. Pemilihan atribut pemecah pada setiap simpul pohon menggunakan **Gain Ratio** (Entropy, Information Gain, dan Split Information dihitung lebih dulu) — ciri khas C4.5 yang membedakannya dari ID3, karena menghindari bias terhadap atribut yang memiliki banyak nilai unik.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Tech Stack
 
-## Contributing
+- **Backend**: Laravel 12 (PHP ^8.2)
+- **Database**: MySQL
+- **Frontend**: Blade Templating, Tailwind CSS 3, Alpine.js
+- **Build Tool**: Vite
+- **Autentikasi**: Laravel Breeze (stack Blade)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Arsitektur Singkat
 
-## Code of Conduct
+Aplikasi mengikuti arsitektur **MVC standar Laravel**: Controller menangani request dan alur bisnis, Model (Eloquent) merepresentasikan data, Form Request menangani validasi input secara terpisah dari Controller, dan Blade View untuk tampilan. Logika algoritma C4.5 diisolasi ke dalam satu **Service class**, `App\Services\C45Classifier`, sehingga perhitungan Entropy, Gain, Split Information, Gain Ratio, pembentukan pohon keputusan, dan klasifikasi tidak bercampur dengan kode Controller. Tidak ada layer Repository maupun API terpisah — aplikasi murni berbasis web session dengan Blade.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Struktur Folder Utama
 
-## Security Vulnerabilities
+```
+app/
+├── Http/
+│   ├── Controllers/       # DashboardController, ProductController, DistributionController,
+│   │                       # PredictionController, ReportController, ProfileController, Auth/*
+│   └── Requests/           # StoreProductRequest, UpdateProductRequest,
+│                            # StoreDistributionRequest, UpdateDistributionRequest, dll.
+├── Models/                 # User, Product, Distribution
+└── Services/
+    └── C45Classifier.php   # Implementasi algoritma C4.5
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+database/
+├── migrations/              # users, products, distributions
+└── seeders/                 # DatabaseSeeder, ProductSeeder, DistributionSeeder
+
+resources/
+├── views/                   # dashboard, products/, distributions/, predictions/, reports/, auth/, layouts/
+└── js/app.js                 # Alpine.js (termasuk komponen live search)
+
+routes/
+├── web.php                  # Route aplikasi (dilindungi middleware auth)
+└── auth.php                  # Route autentikasi bawaan Breeze
+```
+
+## Instalasi
+
+```bash
+git clone https://github.com/KiyyKen/ery-collection.git
+cd ery-collection
+
+composer install
+npm install
+```
+
+## Konfigurasi .env
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+Buat database MySQL kosong, lalu sesuaikan variabel berikut pada file `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=ery_collection
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+## Migrasi Database
+
+```bash
+php artisan migrate
+```
+
+## Seeder
+
+```bash
+php artisan db:seed
+```
+
+atau langsung sekaligus migrasi ulang:
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+Seeder akan mengisi:
+
+- 1 akun Admin.
+- **15 data produk asli Toko Ery Collection** (nama, kategori, ukuran, harga, dan stok sesuai hasil wawancara langsung dengan pemilik toko, satuan dalam lusin).
+- Data distribusi historis dengan **fixed random seed**, sehingga setiap `migrate:fresh --seed` selalu menghasilkan dataset yang identik dan hasil klasifikasi C4.5 dapat direproduksi secara konsisten.
+
+## Menjalankan Aplikasi
+
+```bash
+php artisan serve
+npm run dev
+```
+
+Aplikasi dapat diakses di `http://localhost:8000`.
+
+## Default Login
+
+| Email | Password |
+|---|---|
+| `admin@erycollection.test` | `password` |
+
+*(sesuai `database/seeders/DatabaseSeeder.php`)*
+
+## Alur Prediksi
+
+1. Admin membuka halaman Prediksi dan menekan tombol **"Jalankan Analisis"**.
+2. Sistem mengambil seluruh data produk beserta agregat distribusinya (total kuantitas dan jumlah transaksi).
+3. Jumlah transaksi tiap produk didiskritisasi menjadi tingkat frekuensi **Rendah/Sedang/Tinggi** berdasarkan persentil.
+4. Label latih **Laris/Tidak Laris** ditentukan dari perbandingan total kuantitas distribusi produk terhadap rata-rata seluruh produk.
+5. Algoritma C4.5 membangun pohon keputusan dari data latih tersebut.
+6. Setiap produk diklasifikasikan menggunakan pohon yang terbentuk, dan hasilnya (`predicted_label`) disimpan ke data produk.
+7. Sistem menghitung akurasi model, lalu menampilkan pohon keputusan, akurasi, label prediksi tiap produk, dan rekomendasi restock pada halaman Prediksi.
+
+## Project Status
+
+> ✅ Completed (Thesis Project)
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Project ini dikembangkan untuk keperluan akademik sebagai tugas akhir (skripsi) dan tidak dirilis sebagai proyek open-source dengan lisensi MIT.
+
+## Author
+
+**Rizky Ariyan**
+Universitas Pamulang
+GitHub: [https://github.com/KiyyKen](https://github.com/KiyyKen)
