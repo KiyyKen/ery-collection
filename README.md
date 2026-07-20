@@ -18,11 +18,15 @@ Pencatatan distribusi barang di Toko Ery Collection selama ini dilakukan secara 
 
 ## Preview
 
-<!-- Screenshot Dashboard -->
-<!-- Screenshot Halaman Data Produk -->
-<!-- Screenshot Halaman Data Distribusi -->
-<!-- Screenshot Halaman Prediksi -->
-<!-- Screenshot Halaman Laporan -->
+> Screenshot akan ditambahkan setelah dokumentasi final.
+
+<!--
+docs/images/dashboard.png
+docs/images/products.png
+docs/images/distribution.png
+docs/images/prediction.png
+docs/images/report.png
+-->
 
 ## Fitur Utama
 
@@ -53,27 +57,30 @@ Aplikasi mengikuti arsitektur **MVC standar Laravel**: Controller menangani requ
 
 ```
 app/
-├── Http/
-│   ├── Controllers/       # DashboardController, ProductController, DistributionController,
-│   │                       # PredictionController, ReportController, ProfileController, Auth/*
-│   └── Requests/           # StoreProductRequest, UpdateProductRequest,
-│                            # StoreDistributionRequest, UpdateDistributionRequest, dll.
-├── Models/                 # User, Product, Distribution
-└── Services/
-    └── C45Classifier.php   # Implementasi algoritma C4.5
+├── Http/Controllers/   # DashboardController, ProductController, DistributionController,
+│                       # PredictionController, ReportController, dll.
+├── Http/Requests/      # Form Request untuk validasi input
+├── Models/             # User, Product, Distribution
+└── Services/           # C45Classifier.php (implementasi algoritma C4.5)
 
 database/
-├── migrations/              # users, products, distributions
-└── seeders/                 # DatabaseSeeder, ProductSeeder, DistributionSeeder
+├── migrations/         # Struktur tabel users, products, distributions
+└── seeders/            # DatabaseSeeder, ProductSeeder, DistributionSeeder
 
 resources/
-├── views/                   # dashboard, products/, distributions/, predictions/, reports/, auth/, layouts/
-└── js/app.js                 # Alpine.js (termasuk komponen live search)
+├── views/              # Blade views (dashboard, products, distributions, predictions, reports)
+└── js/app.js           # Alpine.js, termasuk komponen live search
 
 routes/
-├── web.php                  # Route aplikasi (dilindungi middleware auth)
-└── auth.php                  # Route autentikasi bawaan Breeze
+└── web.php             # Seluruh route aplikasi
 ```
+
+## Requirements
+
+- PHP >= 8.2
+- Composer
+- Node.js & NPM
+- MySQL
 
 ## Instalasi
 
@@ -160,10 +167,13 @@ Aplikasi dapat diakses di `http://localhost:8000`.
 
 ## License
 
-Project ini dikembangkan untuk keperluan akademik sebagai tugas akhir (skripsi) dan tidak dirilis sebagai proyek open-source dengan lisensi MIT.
+Project ini dikembangkan sebagai tugas akhir (skripsi) di Universitas Pamulang. Source code dipublikasikan melalui GitHub untuk keperluan dokumentasi dan portfolio. Hak cipta tetap dimiliki oleh penulis, dan project ini tidak dirilis di bawah lisensi open-source seperti MIT.
 
 ## Author
 
 **Rizky Ariyan**
+
 Universitas Pamulang
-GitHub: [https://github.com/KiyyKen](https://github.com/KiyyKen)
+
+GitHub:
+[https://github.com/KiyyKen](https://github.com/KiyyKen)
