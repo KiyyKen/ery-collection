@@ -1,3 +1,154 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*
+ * Cegah <tfoot> (baris "Total" pada Laporan Distribusi) ikut diulang di setiap
+ * halaman saat dicetak/di-export ke PDF. Browser memperlakukan <tfoot> sebagai
+ * CSS display: table-footer-group, yang secara default DIULANG di setiap halaman
+ * cetak ketika tabelnya terpotong jadi beberapa halaman (perilaku bawaan CSS
+ * table printing, bukan bug PHP/Blade). Mengubah role tampilannya jadi
+ * table-row-group biasa membuat baris ini hanya muncul sekali, tepat di akhir tabel.
+ */
+@media print {
+    tfoot {
+        display: table-row-group;
+    }
+}
+
+@layer utilities {
+    @keyframes fade-in-up {
+        from {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in-up {
+        animation: fade-in-up 220ms ease-out;
+    }
+}
+
+@layer components {
+    /* Pure-CSS top-down decision tree connectors for halaman Prediksi. */
+    .decision-tree > ul {
+        display: inline-flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .decision-tree ul {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        padding-top: 2rem;
+    }
+
+    .decision-tree li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        list-style: none;
+        position: relative;
+        padding: 2rem 1.25rem 0 1.25rem;
+    }
+
+    .decision-tree > ul > li {
+        padding-top: 0;
+    }
+
+    .decision-tree > ul > li::before,
+    .decision-tree > ul > li::after {
+        display: none;
+    }
+
+    .decision-tree li::before,
+    .decision-tree li::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 50%;
+        width: 50%;
+        height: 2rem;
+        border-top: 2px solid rgb(43 58 85 / 0.2);
+    }
+
+    .decision-tree li::after {
+        right: auto;
+        left: 50%;
+        border-left: 2px solid rgb(43 58 85 / 0.2);
+    }
+
+    .decision-tree li:only-child::before,
+    .decision-tree li:only-child::after {
+        display: none;
+    }
+
+    .decision-tree li:only-child {
+        padding-top: 0;
+    }
+
+    .decision-tree li:first-child::before,
+    .decision-tree li:last-child::after {
+        border: 0 none;
+    }
+
+    .decision-tree li:last-child::before {
+        border-right: 2px solid rgb(43 58 85 / 0.2);
+        border-radius: 0 0.5rem 0 0;
+    }
+
+    .decision-tree li:first-child::after {
+        border-radius: 0.5rem 0 0 0;
+    }
+
+    .decision-tree ul ul::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 0;
+        height: 2rem;
+        border-left: 2px solid rgb(43 58 85 / 0.2);
+    }
+
+    /* Mobile: fall back to a simple indented vertical tree for readability. */
+    @media (max-width: 767px) {
+        .decision-tree > ul {
+            display: block;
+            width: auto;
+        }
+
+        .decision-tree ul {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding-top: 0;
+        }
+
+        .decision-tree li {
+            align-items: flex-start;
+            padding: 0.75rem 0 0 1.5rem;
+        }
+
+        .decision-tree > ul > li {
+            padding-left: 0;
+        }
+
+        .decision-tree li::before,
+        .decision-tree li::after,
+        .decision-tree ul ul::before {
+            display: none;
+        }
+
+        .decision-tree ul ul {
+            border-left: 2px dashed rgb(43 58 85 / 0.2);
+            margin-top: 0.5rem;
+            margin-left: 0.6rem;
+        }
+    }
+}

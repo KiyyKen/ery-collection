@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Distribution;
 use App\Models\Product;
-use Illuminate\Support\Collection;
 
 class DashboardController extends Controller
 {
@@ -92,39 +91,23 @@ class DashboardController extends Controller
     /**
      * Ringkasan analisis C4.5 terakhir: tanggal, jumlah produk, dan akurasi.
      *
-     * Akurasi dihitung ulang dari data saat ini (bukan disimpan ke database),
-     * dengan formula label yang sama seperti pada proses klasifikasi
-     * (total kuantitas produk vs rata-rata seluruh produk).
+     * Dibaca langsung dari session hasil PredictionController::process(), bukan dihitung
+     * ulang dari data Produk/Distribusi saat ini. Session ini sudah dihapus oleh
+     * InvalidatesPredictionCache begitu data Produk/Distribusi berubah, jadi kalau
+     * sesinya kosong berarti belum ada analisis yang valid untuk data saat ini —
+     * Dashboard harus tampil "belum ada analisis", bukan menghitung akurasi baru
+     * dari label lama yang sudah usang.
      */
     private function buildLastAnalysisSummary(): ?array
     {
-        $analyzedProducts = Product::whereNotNull('predicted_label')->get();
-
-        if ($analyzedProducts->isEmpty()) {
+        if (! session()->has('c45_accuracy')) {
             return null;
         }
 
         return [
-            'date' => $analyzedProducts->max('last_classified_at'),
-            'total' => $analyzedProducts->count(),
-            'accuracy' => $this->calculateAccuracy($analyzedProducts),
+            'date' => session('c45_analyzed_at'),
+            'total' => session('c45_total'),
+            'accuracy' => session('c45_accuracy'),
         ];
-    }
-
-    private function calculateAccuracy(Collection $analyzedProducts): float
-    {
-        $productsWithQuantity = Product::whereIn('id', $analyzedProducts->pluck('id'))
-            ->withSum('distributions', 'quantity')
-            ->get();
-
-        $averageQuantity = $productsWithQuantity->avg(fn (Product $product) => (int) ($product->distributions_sum_quantity ?? 0));
-
-        $correct = $productsWithQuantity->filter(function (Product $product) use ($averageQuantity) {
-            $actualLabel = ((int) ($product->distributions_sum_quantity ?? 0)) >= $averageQuantity ? 'Laris' : 'Tidak Laris';
-
-            return $actualLabel === $product->predicted_label;
-        })->count();
-
-        return round(($correct / $productsWithQuantity->count()) * 100, 1);
     }
 }

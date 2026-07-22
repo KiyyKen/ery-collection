@@ -43,7 +43,7 @@
     <div>
         <x-input-label for="unit" value="Satuan" />
         <x-text-input id="unit" name="unit" type="text" class="mt-1 block w-full"
-            :value="old('unit', $product->unit ?? 'pcs')" required />
+            :value="old('unit', $product->unit ?? 'lusin')" required />
         <x-input-error :messages="$errors->get('unit')" class="mt-2" />
     </div>
 </div>

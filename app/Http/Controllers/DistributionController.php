@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\InvalidatesPredictionCache;
 use App\Http\Requests\StoreDistributionRequest;
 use App\Http\Requests\UpdateDistributionRequest;
 use App\Models\Distribution;
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 
 class DistributionController extends Controller
 {
+    use InvalidatesPredictionCache;
+
     /**
      * Display a listing of the resource.
      */
@@ -88,6 +91,8 @@ class DistributionController extends Controller
             $product->decrement('stock', $request->quantity);
         });
 
+        $this->forgetPredictionCache();
+
         return redirect()->route('distributions.index')->with('success', 'Data distribusi berhasil ditambahkan.');
     }
 
@@ -119,6 +124,8 @@ class DistributionController extends Controller
             $product->decrement('stock', $request->quantity);
         });
 
+        $this->forgetPredictionCache();
+
         return redirect()->route('distributions.index')->with('success', 'Data distribusi berhasil diperbarui.');
     }
 
@@ -133,6 +140,8 @@ class DistributionController extends Controller
             $distribution->product->increment('stock', $distribution->quantity);
             $distribution->delete();
         });
+
+        $this->forgetPredictionCache();
 
         return redirect()->route('distributions.index')->with('success', 'Data distribusi berhasil dihapus.');
     }

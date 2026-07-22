@@ -22,8 +22,12 @@ class PredictionController extends Controller
         $tree = session('c45_tree');
         $accuracy = session('c45_accuracy');
         $totalTraining = session('c45_total');
+        $p33 = session('c45_p33');
+        $p66 = session('c45_p66');
+        $averageQuantity = session('c45_average_quantity');
+        $frequencyLevels = session('c45_frequency_levels', []);
 
-        return view('predictions.index', compact('products', 'averageStock', 'tree', 'accuracy', 'totalTraining'));
+        return view('predictions.index', compact('products', 'averageStock', 'tree', 'accuracy', 'totalTraining', 'p33', 'p66', 'averageQuantity', 'frequencyLevels'));
     }
 
     /**
@@ -81,9 +85,19 @@ class PredictionController extends Controller
 
         $accuracy = round(($correct / count($dataset)) * 100, 1);
 
-        session()->flash('c45_tree', $tree);
-        session()->flash('c45_accuracy', $accuracy);
-        session()->flash('c45_total', count($dataset));
+        // Disimpan dengan session()->put() (bukan flash()) supaya hasil analisis tetap ada
+        // selagi session pengguna aktif, walau berpindah-pindah halaman. Lihat
+        // Concerns\InvalidatesPredictionCache untuk penghapusannya saat data berubah.
+        session()->put([
+            'c45_tree' => $tree,
+            'c45_accuracy' => $accuracy,
+            'c45_total' => count($dataset),
+            'c45_p33' => $p33,
+            'c45_p66' => $p66,
+            'c45_average_quantity' => $averageQuantity,
+            'c45_frequency_levels' => collect($dataset)->pluck('frequency_level', 'product_id')->all(),
+            'c45_analyzed_at' => now(),
+        ]);
 
         return redirect()->route('predictions.index')->with(
             'success',

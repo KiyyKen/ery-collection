@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\InvalidatesPredictionCache;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
@@ -9,6 +10,8 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    use InvalidatesPredictionCache;
+
     /**
      * Display a listing of the resource.
      */
@@ -53,6 +56,8 @@ class ProductController extends Controller
     {
         Product::create($request->validated());
 
+        $this->forgetPredictionCache();
+
         return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan.');
     }
 
@@ -71,6 +76,8 @@ class ProductController extends Controller
     {
         $product->update($request->validated());
 
+        $this->forgetPredictionCache();
+
         return redirect()->route('products.index')->with('success', 'Produk berhasil diperbarui.');
     }
 
@@ -80,6 +87,8 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
+
+        $this->forgetPredictionCache();
 
         return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus.');
     }

@@ -7,14 +7,14 @@
 
     <div class="py-12">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-surface border border-dashed border-denim/30 rounded-md p-6">
+            <div class="bg-surface border border-denim/10 rounded-xl shadow-sm p-6">
                 <form method="POST" action="{{ route('distributions.store') }}">
                     @csrf
 
                     <div>
                         <x-input-label for="product_id" value="Produk" />
                         <select id="product_id" name="product_id" required
-                            class="mt-1 block w-full border-denim/30 focus:border-denim focus:ring-denim rounded-md font-sans text-ink">
+                            class="mt-1 block w-full border-denim/20 focus:border-denim focus:ring-2 focus:ring-denim/20 rounded-lg font-sans text-ink px-3.5 py-2.5 transition-shadow">
                             <option value="">-- Pilih Produk --</option>
                             @foreach ($products as $product)
                                 <option value="{{ $product->id }}" @selected(old('product_id') == $product->id)>
@@ -41,8 +41,8 @@
 
                     <div class="mt-4">
                         <x-input-label for="notes" value="Catatan (opsional)" />
-                        <textarea id="notes" name="notes" rows="3"
-                            class="mt-1 block w-full border-denim/30 focus:border-denim focus:ring-denim rounded-md font-sans text-ink">{{ old('notes') }}</textarea>
+                        <textarea id="notes" name="notes" rows="3" placeholder="Opsional, misal keterangan pengiriman"
+                            class="mt-1 block w-full border-denim/20 focus:border-denim focus:ring-2 focus:ring-denim/20 rounded-lg font-sans text-ink placeholder:text-ink/40 px-3.5 py-2.5 transition-shadow">{{ old('notes') }}</textarea>
                         <x-input-error :messages="$errors->get('notes')" class="mt-2" />
                     </div>
 

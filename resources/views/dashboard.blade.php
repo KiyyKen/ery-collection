@@ -11,15 +11,29 @@
             <x-flash-messages />
 
             {{-- Ringkasan --}}
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div class="bg-surface border border-dashed border-denim/30 rounded-md p-5">
-                    <p class="font-sans text-sm text-ink/60">Total Produk</p>
-                    <p class="font-mono text-3xl font-medium text-denim mt-1">{{ $totalProducts }}</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div class="bg-surface border border-denim/10 rounded-xl shadow-sm p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-denim/5 text-denim flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-8.25-4.5L3.75 7.5m16.5 0l-8.25 4.5m8.25-4.5v9l-8.25 4.5M3.75 7.5l8.25 4.5m-8.25-4.5v9l8.25 4.5m0-9v9" />
+                            </svg>
+                        </div>
+                        <p class="font-sans text-sm text-ink/60">Total Produk</p>
+                    </div>
+                    <p class="font-mono text-3xl font-semibold text-denim">{{ $totalProducts }}</p>
                 </div>
-                <div class="bg-surface border border-dashed border-denim/30 rounded-md p-5">
-                    <p class="font-sans text-sm text-ink/60">Total Distribusi</p>
-                    <div class="flex items-baseline gap-2 mt-1">
-                        <p class="font-mono text-3xl font-medium text-denim">{{ $totalDistributions }}</p>
+                <div class="bg-surface border border-denim/10 rounded-xl shadow-sm p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-thread/10 text-thread flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+                            </svg>
+                        </div>
+                        <p class="font-sans text-sm text-ink/60">Total Distribusi</p>
+                    </div>
+                    <div class="flex items-baseline gap-2">
+                        <p class="font-mono text-3xl font-semibold text-denim">{{ $totalDistributions }}</p>
                         @if (! is_null($distributionTrend))
                             <span class="inline-flex items-center gap-0.5 font-mono text-xs font-semibold {{ $distributionTrend >= 0 ? 'text-moss' : 'text-brick' }}">
                                 {{ $distributionTrend >= 0 ? '▲' : '▼' }}{{ abs($distributionTrend) }}%
@@ -30,19 +44,26 @@
                         <p class="font-sans text-xs text-ink/40 mt-1">dibanding bulan lalu</p>
                     @endif
                 </div>
-                <div class="bg-surface border border-dashed border-denim/30 rounded-md p-5">
-                    <p class="font-sans text-sm text-ink/60">Distribusi Hari Ini</p>
-                    <p class="font-mono text-3xl font-medium text-denim mt-1">{{ $todayDistributions }}</p>
+                <div class="bg-surface border border-denim/10 rounded-xl shadow-sm p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-moss/10 text-moss flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0V11.25A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                            </svg>
+                        </div>
+                        <p class="font-sans text-sm text-ink/60">Distribusi Hari Ini</p>
+                    </div>
+                    <p class="font-mono text-3xl font-semibold text-denim">{{ $todayDistributions }}</p>
                 </div>
             </div>
 
             {{-- Grafik --}}
-            <div class="bg-surface border border-dashed border-denim/30 rounded-md p-6">
-                <h3 class="font-display font-semibold text-denim mb-6">Grafik Distribusi 6 Bulan Terakhir</h3>
+            <div class="bg-surface border border-denim/10 rounded-xl shadow-sm p-6">
+                <h3 class="font-display font-semibold text-denim mb-8">Grafik Distribusi 6 Bulan Terakhir</h3>
 
                 @php $max = max($chartData->max('total'), 1); @endphp
 
-                <div class="flex items-end gap-3 sm:gap-6 h-48">
+                <div class="flex items-end gap-3 sm:gap-6 h-64">
                     @foreach ($chartData as $item)
                         <div class="flex-1 flex flex-col items-center justify-end h-full">
                             <span class="font-mono text-xs text-ink/60 mb-1">{{ $item['total'] }}</span>
@@ -58,7 +79,7 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {{-- Analisis Terakhir --}}
-                <div class="bg-surface border border-dashed border-denim/30 rounded-md p-6">
+                <div class="bg-surface border border-denim/10 rounded-xl shadow-sm p-6">
                     <h3 class="font-display font-semibold text-denim mb-4">Analisis Terakhir</h3>
 
                     @if ($lastAnalysis)
@@ -93,7 +114,7 @@
                 </div>
 
                 {{-- Produk Perlu Restock --}}
-                <div class="bg-surface border border-dashed border-denim/30 rounded-md p-6">
+                <div class="bg-surface border border-denim/10 rounded-xl shadow-sm p-6">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="font-display font-semibold text-denim">Produk Perlu Restock</h3>
                         <a href="{{ route('predictions.index') }}" class="font-sans text-sm text-thread hover:text-thread-light hover:underline focus:outline-none focus-visible:underline transition-colors">Lihat semua</a>
@@ -124,7 +145,7 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {{-- Produk Terlaris --}}
-                <div class="bg-surface border border-dashed border-denim/30 rounded-md p-6">
+                <div class="bg-surface border border-denim/10 rounded-xl shadow-sm p-6">
                     <h3 class="font-display font-semibold text-denim mb-4">Produk Terlaris (Top 5)</h3>
                     <table class="min-w-full text-sm">
                         <thead>
@@ -136,7 +157,7 @@
                         </thead>
                         <tbody class="font-mono">
                             @forelse ($topProducts as $product)
-                                <tr class="border-b last:border-0 border-denim/10">
+                                <tr class="border-b last:border-0 border-denim/10 hover:bg-denim/5 transition-colors">
                                     <td class="py-2 pr-4 text-ink">{{ $product->name }}</td>
                                     <td class="py-2 pr-4 text-ink/60 font-sans">{{ $product->category }}</td>
                                     <td class="py-2 text-right text-ink">{{ $product->distributions_sum_quantity ?? 0 }}</td>
@@ -151,7 +172,7 @@
                 </div>
 
                 {{-- Hasil Prediksi Terbaru --}}
-                <div class="bg-surface border border-dashed border-denim/30 rounded-md p-6">
+                <div class="bg-surface border border-denim/10 rounded-xl shadow-sm p-6">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="font-display font-semibold text-denim">Hasil Prediksi Terbaru</h3>
                         <a href="{{ route('predictions.index') }}" class="font-sans text-sm text-thread hover:text-thread-light hover:underline focus:outline-none focus-visible:underline transition-colors">Lihat semua</a>

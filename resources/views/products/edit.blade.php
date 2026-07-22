@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-surface border border-dashed border-denim/30 rounded-md p-6">
+            <div class="bg-surface border border-denim/10 rounded-xl shadow-sm p-6">
                 <form method="POST" action="{{ route('products.update', $product) }}">
                     @csrf
                     @method('PUT')

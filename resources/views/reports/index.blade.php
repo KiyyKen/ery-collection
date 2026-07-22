@@ -10,7 +10,7 @@
 
             <x-flash-messages />
 
-            <div class="bg-surface border border-dashed border-denim/30 rounded-md p-6 print:hidden">
+            <div class="bg-surface border border-denim/10 rounded-xl shadow-sm p-6 print:hidden">
                 <form method="GET" action="{{ route('reports.index') }}" class="flex flex-wrap items-end gap-4">
                     <div>
                         <x-input-label for="from" value="Tanggal Awal" />
@@ -27,7 +27,7 @@
                 </form>
             </div>
 
-            <div class="bg-surface border border-dashed border-denim/30 rounded-md p-6">
+            <div class="bg-surface border border-denim/10 rounded-xl shadow-sm p-6">
                 <div class="mb-4">
                     <h3 class="font-display font-semibold text-denim">Laporan Distribusi Toko Ery Collection</h3>
                     <p class="font-sans text-sm text-ink/60">
@@ -35,7 +35,7 @@
                     </p>
                 </div>
 
-                <div class="overflow-x-auto -mx-6 sm:mx-0">
+                <div class="overflow-x-auto -mx-6 sm:mx-0 print:overflow-visible">
                     <table class="min-w-[640px] w-full text-sm">
                         <thead class="bg-denim text-white font-sans print:bg-transparent print:text-ink print:border-b-2 print:border-ink/30">
                             <tr class="text-left">
@@ -48,12 +48,12 @@
                         </thead>
                         <tbody class="font-mono text-sm text-ink">
                             @forelse ($distributions as $distribution)
-                                <tr class="odd:bg-cream even:bg-surface border-b border-denim/10 print:bg-transparent print:border-ink/10">
+                                <tr class="odd:bg-cream even:bg-surface border-b border-denim/10 hover:bg-denim/5 print:hover:bg-transparent transition-colors print:bg-transparent print:border-ink/10">
                                     <td class="py-2.5 px-4 whitespace-nowrap print:px-0">{{ $distribution->distribution_date->translatedFormat('d M Y') }}</td>
                                     <td class="py-2.5 px-4 font-sans print:px-2">{{ $distribution->product->name }}</td>
                                     <td class="py-2.5 px-4 font-sans text-ink/60 print:px-2">{{ $distribution->product->category }}</td>
                                     <td class="py-2.5 px-4 font-sans text-ink/60 print:px-2">{{ $distribution->product->size }}</td>
-                                    <td class="py-2.5 px-4 text-right print:px-0">{{ $distribution->quantity }} {{ $distribution->product->unit }}</td>
+                                    <td class="py-2.5 px-4 text-right whitespace-nowrap print:px-0">{{ $distribution->quantity }} {{ $distribution->product->unit }}</td>
                                 </tr>
                             @empty
                                 <tr>
@@ -67,7 +67,7 @@
                             <tfoot>
                                 <tr class="border-t-2 border-denim/20 font-sans font-semibold text-ink print:border-ink/30">
                                     <td colspan="4" class="py-3 px-4 text-right print:px-2">Total</td>
-                                    <td class="py-3 px-4 text-right font-mono print:px-0">{{ $distributions->sum('quantity') }}</td>
+                                    <td class="py-3 px-4 text-right font-mono whitespace-nowrap print:px-0">{{ $distributions->sum('quantity') }}</td>
                                 </tr>
                             </tfoot>
                         @endif

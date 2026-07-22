@@ -1,4 +1,9 @@
-<nav x-data="{ open: false }" class="bg-surface border-b border-denim/10 print:hidden">
+<nav
+    x-data="{ open: false, scrolled: false }"
+    x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 8)"
+    :class="scrolled ? 'shadow-sm' : ''"
+    class="sticky top-0 z-40 bg-surface border-b border-denim/10 transition-shadow print:hidden"
+>
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
