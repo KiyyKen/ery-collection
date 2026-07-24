@@ -29,7 +29,7 @@
 
             <div class="bg-surface border border-denim/10 rounded-xl shadow-sm p-6">
                 <div class="mb-4">
-                    <h3 class="font-display font-semibold text-denim">Laporan Distribusi Toko Ery Collection</h3>
+                    <h3 class="font-display font-semibold text-denim">Laporan Distribusi Toko Yeri Collection</h3>
                     <p class="font-sans text-sm text-ink/60">
                         Periode: <span class="font-mono">{{ $from->translatedFormat('d M Y') }}</span> &mdash; <span class="font-mono">{{ $to->translatedFormat('d M Y') }}</span>
                     </p>

@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 class ProductSeeder extends Seeder
 {
     /**
-     * Data produk aktual Toko Ery Collection (hasil wawancara pemilik toko).
+     * Data produk aktual Toko Yeri Collection (hasil wawancara pemilik toko).
      * Seluruh stok dicatat dalam satuan lusin.
      */
     private array $products = [

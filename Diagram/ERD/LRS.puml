@@ -2,7 +2,7 @@
 
 !include ../theme.puml
 
-title LRS (Logical Record Structure) - Sistem Distribusi Ery Collection
+title LRS (Logical Record Structure) - Sistem Distribusi Yeri Collection
 
 object "products" as products {
   id (PK)

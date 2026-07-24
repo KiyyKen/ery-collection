@@ -2,7 +2,7 @@
 
 ## Tujuan Folder Ini
 
-Folder ini berisi seluruh diagram UML (ERD, LRS, Use Case, Activity, Sequence, Class) untuk dokumentasi skripsi **"Implementasi Sistem Distribusi untuk Memprediksi Produk Terlaris dengan Algoritma C4.5 Berbasis Website pada Toko Ery Collection"**. Diagram ditulis sebagai kode (PlantUML), bukan gambar statis, supaya:
+Folder ini berisi seluruh diagram UML (ERD, LRS, Use Case, Activity, Sequence, Class) untuk dokumentasi skripsi **"Implementasi Sistem Distribusi untuk Memprediksi Produk Terlaris dengan Algoritma C4.5 Berbasis Website pada Toko Yeri Collection"**. Diagram ditulis sebagai kode (PlantUML), bukan gambar statis, supaya:
 
 - Mudah di-review lewat diff seperti kode biasa.
 - Konsisten secara visual (satu tema bersama, lihat `theme.puml`).

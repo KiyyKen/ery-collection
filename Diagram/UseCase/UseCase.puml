@@ -2,13 +2,13 @@
 
 !include ../theme.puml
 
-title Use Case Diagram - Sistem Distribusi Ery Collection
+title Use Case Diagram - Sistem Distribusi Yeri Collection
 
 left to right direction
 
 actor "Admin\n(Pemilik Toko)" as Admin
 
-rectangle "Sistem Distribusi Ery Collection" {
+rectangle "Sistem Distribusi Yeri Collection" {
   usecase "Login" as UC_Login
   usecase "Logout" as UC_Logout
   usecase "Melihat Dashboard" as UC_Dashboard
