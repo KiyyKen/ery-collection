@@ -1,0 +1,21 @@
+@startuml
+
+!include ../theme.puml
+
+title Activity Diagram - Login
+
+|Admin|
+start
+:Isi email dan password;
+:Klik "Log in";
+
+|Sistem|
+if (Kredensial valid?) then (ya)
+  :Masuk ke Dashboard;
+  stop
+else (tidak)
+  :Tampilkan pesan\n"Email atau password salah";
+  stop
+endif
+
+@enduml

@@ -1,0 +1,46 @@
+@startuml
+
+!include ../theme.puml
+
+title ERD - Sistem Distribusi Ery Collection
+
+entity "users" as users {
+  * id : bigint <<PK>>
+  --
+  name : string
+  email : string
+}
+
+entity "products" as products {
+  * id : bigint <<PK>>
+  --
+  code : string
+  name : string
+  category : string
+  size : string
+  price : decimal(12,2)
+  stock : int unsigned
+  unit : string
+  predicted_label : enum('Laris','Tidak Laris')
+  last_classified_at : timestamp
+}
+
+entity "distributions" as distributions {
+  * id : bigint <<PK>>
+  --
+  # product_id : bigint <<FK>>
+  distribution_date : date
+  quantity : int unsigned
+  notes : text
+}
+
+products "1" ||--o{ "0..*" distributions :  "memiliki distribusi"
+
+note right of users
+  Users tidak memiliki relasi
+  dengan tabel bisnis karena
+  aplikasi menggunakan
+  satu akun Administrator.
+end note
+
+@enduml

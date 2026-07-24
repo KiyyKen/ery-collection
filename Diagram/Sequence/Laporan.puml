@@ -1,0 +1,33 @@
+@startuml
+
+!include ../theme.puml
+
+title Sequence Diagram - Laporan Distribusi
+
+actor Admin
+boundary "Halaman Laporan" as View
+control "ReportController" as Controller
+entity "Distribution" as DistributionModel
+
+Admin -> View : pilih rentang tanggal
+activate View
+View -> Controller : tampilkan laporan(dari, sampai)
+activate Controller
+Controller -> DistributionModel : ambil data distribusi\nsesuai rentang tanggal
+activate DistributionModel
+DistributionModel --> Controller : data distribusi
+deactivate DistributionModel
+
+Controller --> View : tampilkan tabel dan total
+deactivate Controller
+View --> Admin : lihat Laporan Distribusi
+deactivate View
+
+opt Admin mencetak
+    Admin -> View : klik "Cetak"
+    activate View
+    View --> Admin : tampilan cetak
+    deactivate View
+end
+
+@enduml

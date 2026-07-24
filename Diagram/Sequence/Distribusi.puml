@@ -1,0 +1,40 @@
+@startuml
+
+!include ../theme.puml
+
+title Sequence Diagram - Kelola Data Distribusi (Tambah Distribusi)
+
+actor Admin
+boundary "Form Distribusi" as View
+control "DistributionController" as Controller
+entity "Product" as ProductModel
+entity "Distribution" as DistributionModel
+
+Admin -> View : pilih produk, isi tanggal & jumlah
+activate View
+View -> Controller : simpan(data distribusi)
+activate Controller
+Controller -> ProductModel : cek stok produk
+activate ProductModel
+ProductModel --> Controller : stok tersedia
+deactivate ProductModel
+
+alt Jumlah melebihi stok
+    Controller --> View : tampilkan error validasi
+    deactivate Controller
+else Jumlah valid
+    Controller -> DistributionModel : simpan distribusi baru
+    activate DistributionModel
+    DistributionModel --> Controller : distribusi tersimpan
+    deactivate DistributionModel
+    Controller -> ProductModel : kurangi stok produk
+    activate ProductModel
+    deactivate ProductModel
+    Controller --> View : redirect ke Data Distribusi
+    deactivate Controller
+end
+
+View --> Admin : tampilkan daftar distribusi
+deactivate View
+
+@enduml

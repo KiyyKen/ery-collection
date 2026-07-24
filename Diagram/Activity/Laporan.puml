@@ -1,0 +1,29 @@
+@startuml
+
+!include ../theme.puml
+
+title Activity Diagram - Laporan Distribusi
+
+|Admin|
+start
+:Buka Laporan Distribusi;
+
+|Sistem|
+:Tampilkan data distribusi\nsesuai rentang tanggal;
+
+|Admin|
+if (Ubah rentang tanggal?) then (ya)
+  :Atur tanggal awal dan akhir;
+  |Sistem|
+  :Tampilkan data terbaru;
+  |Admin|
+else (tidak)
+endif
+
+if (Cetak laporan?) then (ya)
+  :Cetak laporan;
+endif
+
+stop
+
+@enduml

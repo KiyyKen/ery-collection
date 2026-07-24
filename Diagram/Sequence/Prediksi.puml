@@ -1,0 +1,45 @@
+@startuml
+
+!include ../theme.puml
+
+title Sequence Diagram - Prediksi Produk Terlaris (C4.5)
+
+actor Admin
+boundary "Halaman Prediksi" as View
+control "PredictionController" as Controller
+entity "Product" as ProductModel
+participant "C45Classifier" as Classifier
+
+Admin -> View : klik "Jalankan Analisis"
+activate View
+View -> Controller : jalankan analisis
+activate Controller
+Controller -> ProductModel : ambil data produk & distribusi
+activate ProductModel
+ProductModel --> Controller : data produk
+deactivate ProductModel
+
+Controller -> Controller : hitung frekuensi\ndan label tiap produk
+
+Controller -> Classifier : bangun Decision Tree
+activate Classifier
+Classifier --> Controller : struktur Decision Tree
+deactivate Classifier
+
+loop tiap produk
+    Controller -> Classifier : klasifikasikan produk
+    activate Classifier
+    Classifier --> Controller : label prediksi
+    deactivate Classifier
+    Controller -> ProductModel : simpan label prediksi
+    activate ProductModel
+    deactivate ProductModel
+end
+
+Controller -> Controller : hitung akurasi model
+Controller --> View : tampilkan hasil analisis
+deactivate Controller
+View --> Admin : lihat Decision Tree,\nDecision Rules, dan hasil klasifikasi
+deactivate View
+
+@enduml

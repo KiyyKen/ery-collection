@@ -1,0 +1,19 @@
+@startuml
+
+!include ../theme.puml
+
+title Activity Diagram - Logout
+
+|Admin|
+start
+:Klik "Log Out";
+
+|Sistem|
+:Akhiri sesi login;
+:Arahkan ke halaman Login;
+
+|Admin|
+:Melihat halaman Login;
+stop
+
+@enduml

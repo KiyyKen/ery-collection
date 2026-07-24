@@ -1,0 +1,35 @@
+@startuml
+
+!include ../theme.puml
+
+title LRS (Logical Record Structure) - Sistem Distribusi Ery Collection
+
+object "products" as products {
+  id (PK)
+  code
+  name
+  category
+  size
+  price
+  stock
+  unit
+  predicted_label
+}
+
+object "distributions" as distributions {
+  id (PK)
+  product_id (FK)
+  distribution_date
+  quantity
+  notes
+}
+
+object "users" as users {
+  id (PK)
+  name
+  email
+}
+
+products "1" -- "0..*" distributions : product_id
+
+@enduml

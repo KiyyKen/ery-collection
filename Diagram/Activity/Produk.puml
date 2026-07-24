@@ -1,0 +1,32 @@
+@startuml
+
+!include ../theme.puml
+
+title Activity Diagram - Kelola Data Produk
+
+|Admin|
+start
+:Buka Data Produk;
+:Pilih aksi;
+
+|Sistem|
+if (Aksi?) then (Tambah/Ubah)
+  repeat
+    |Admin|
+    :Isi/ubah data produk;
+    |Sistem|
+    :Validasi data;
+  backward:Tampilkan pesan error;
+  repeat while (Data tidak valid?)
+  :Simpan/perbarui data produk;
+elseif (Aksi?) then (Cari)
+  :Tampilkan produk\nsesuai kata kunci;
+else (Hapus)
+  :Hapus produk;
+endif
+
+|Admin|
+:Melihat daftar produk terbaru;
+stop
+
+@enduml

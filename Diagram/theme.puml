@@ -1,0 +1,42 @@
+' Shared PlantUML theme - Sistem Distribusi Ery Collection
+'
+' Purpose: consistent, print-friendly styling for thesis (skripsi) documentation.
+' Include this file from any diagram, right after @startuml, e.g.:
+'   !include ../theme.puml
+'
+' This file intentionally contains ONLY styling (skinparam) directives.
+' It must not declare any actors, classes, entities, participants, or other
+' diagram-specific content - each diagram owns its own content.
+
+' --- Canvas -----------------------------------------------------------
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam monochrome true
+skinparam dpi 180
+
+' --- Lines / layout -----------------------------------------------------
+skinparam linetype ortho
+skinparam roundCorner 6
+skinparam nodesep 20
+skinparam ranksep 30
+
+' --- Typography -----------------------------------------------------
+skinparam defaultFontName Helvetica
+skinparam defaultFontSize 12
+skinparam defaultFontColor #1F2A37
+
+skinparam titleFontSize 16
+skinparam titleFontStyle bold
+skinparam titleFontColor #1F2A37
+
+skinparam ArrowFontSize 11
+skinparam ArrowColor #1F2A37
+skinparam ArrowThickness 1
+
+' --- Borders / fill (kept neutral for monochrome-friendly printing) -----
+skinparam BorderColor #1F2A37
+skinparam BorderThickness 1
+
+skinparam NoteBackgroundColor #FFFFFF
+skinparam NoteBorderColor #1F2A37
+skinparam NoteFontSize 11

@@ -1,0 +1,33 @@
+@startuml
+
+!include ../theme.puml
+
+title Sequence Diagram - Kelola Data Produk (Tambah Produk)
+
+actor Admin
+boundary "Form Produk" as View
+control "ProductController" as Controller
+entity "Product" as ProductModel
+
+Admin -> View : isi data produk
+activate View
+View -> Controller : simpan(data produk)
+activate Controller
+Controller -> Controller : validasi data
+
+alt Data tidak valid
+    Controller --> View : tampilkan error validasi
+    deactivate Controller
+else Data valid
+    Controller -> ProductModel : simpan produk baru
+    activate ProductModel
+    ProductModel --> Controller : produk tersimpan
+    deactivate ProductModel
+    Controller --> View : redirect ke Data Produk
+    deactivate Controller
+end
+
+View --> Admin : tampilkan daftar produk
+deactivate View
+
+@enduml

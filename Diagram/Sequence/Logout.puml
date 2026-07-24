@@ -1,0 +1,21 @@
+@startuml
+
+!include ../theme.puml
+
+title Sequence Diagram - Logout
+
+actor Admin
+boundary "Navigasi" as View
+control "AuthenticatedSessionController" as Controller
+
+Admin -> View : klik "Log Out"
+activate View
+View -> Controller : logout()
+activate Controller
+Controller -> Controller : akhiri sesi login
+Controller --> View : redirect ke Login
+deactivate Controller
+View --> Admin : tampilkan halaman Login
+deactivate View
+
+@enduml

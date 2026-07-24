@@ -1,0 +1,83 @@
+@startuml
+
+!include ../theme.puml
+
+title Class Diagram - Sistem Distribusi Ery Collection
+
+class User {
+  + id : bigint
+  + name : string
+  + email : string
+}
+
+class Product {
+  + id : bigint
+  + code : string
+  + name : string
+  + category : string
+  + size : string
+  + price : decimal
+  + stock : int
+  + predicted_label : string
+  --
+  + distributions() : HasMany
+}
+
+class Distribution {
+  + id : bigint
+  + product_id : bigint
+  + distribution_date : date
+  + quantity : int
+  --
+  + product() : BelongsTo
+}
+
+Product "1" -- "0..*" Distribution : memiliki >
+
+class C45Classifier {
+  + buildTree(dataset, attributes) : array
+  + classify(row) : string
+  + calculateEntropy(dataset) : float
+  + calculateGain(dataset, attribute) : float
+  + calculateSplitInformation(dataset, attribute) : float
+  + calculateGainRatio(dataset, attribute) : float
+}
+
+class ProductController {
+  + store(data) : void
+  + update(data) : void
+  + destroy() : void
+}
+
+class DistributionController {
+  + store(data) : void
+  + update(data) : void
+  + destroy() : void
+}
+
+class PredictionController {
+  + process() : void
+}
+
+class AuthenticatedSessionController {
+  + store(credentials) : void
+  + destroy() : void
+}
+
+' Layout hints only (invisible links, no semantic meaning) - keeps the four
+' controllers evenly spaced in one row, and establishes a clean left-to-right
+' reading order (User, Product, C45Classifier) for the domain classes below.
+AuthenticatedSessionController -[hidden]right- ProductController
+ProductController -[hidden]right- DistributionController
+DistributionController -[hidden]right- PredictionController
+User -[hidden]right- Product
+Product -[hidden]right- C45Classifier
+
+ProductController ..> Product : <<use>>
+DistributionController ..> Distribution : <<use>>
+DistributionController ..> Product : <<use>>
+PredictionController ..> Product : <<use>>
+PredictionController ..> C45Classifier : <<use>>
+AuthenticatedSessionController ..> User : <<use>>
+
+@enduml

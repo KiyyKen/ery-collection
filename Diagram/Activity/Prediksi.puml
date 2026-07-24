@@ -1,0 +1,36 @@
+@startuml
+
+!include ../theme.puml
+
+title Activity Diagram - Prediksi Produk Terlaris (C4.5)
+
+|Admin|
+start
+:Buka halaman Prediksi;
+
+|Sistem|
+if (Sudah ada hasil analisis?) then (tidak)
+  :Tampilkan\n"Belum ada hasil analisis";
+else (ya)
+  :Tampilkan Decision Tree,\nDecision Rules, dan hasil klasifikasi;
+endif
+
+|Admin|
+:Klik "Jalankan Analisis";
+
+|Sistem|
+if (Data produk tersedia?) then (tidak)
+  :Tampilkan pesan error;
+  stop
+else (ya)
+  :Hitung tingkat frekuensi distribusi\n(Rendah/Sedang/Tinggi) tiap produk;
+  :Tentukan label Laris/Tidak Laris\n(dibanding rata-rata kuantitas);
+  :Bangun Decision Tree\n(Entropy dan Gain Ratio);
+  :Klasifikasikan setiap produk;
+  :Hitung akurasi model;
+  |Admin|
+  :Melihat Decision Tree, Decision Rules,\ndan hasil klasifikasi;
+  stop
+endif
+
+@enduml

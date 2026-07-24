@@ -1,0 +1,32 @@
+@startuml
+
+!include ../theme.puml
+
+title Sequence Diagram - Login
+
+actor Admin
+boundary "Halaman Login" as View
+control "AuthenticatedSessionController" as Controller
+database "users" as UsersTable
+
+Admin -> View : isi email dan password
+activate View
+View -> Controller : login(email, password)
+activate Controller
+Controller -> UsersTable : verifikasi kredensial
+activate UsersTable
+UsersTable --> Controller : hasil verifikasi
+deactivate UsersTable
+
+alt Kredensial valid
+    Controller --> View : redirect ke Dashboard
+    deactivate Controller
+else Kredensial tidak valid
+    Controller --> View : tampilkan pesan error
+    deactivate Controller
+end
+
+View --> Admin : tampilkan halaman
+deactivate View
+
+@enduml

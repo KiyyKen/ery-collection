@@ -1,0 +1,34 @@
+@startuml
+
+!include ../theme.puml
+
+title Activity Diagram - Kelola Data Distribusi
+
+|Admin|
+start
+:Buka Data Distribusi;
+:Pilih aksi;
+
+|Sistem|
+if (Aksi?) then (Tambah/Ubah)
+  repeat
+    |Admin|
+    :Pilih produk, isi tanggal\ndan jumlah;
+    |Sistem|
+    :Validasi jumlah terhadap stok;
+  backward:Tampilkan pesan error;
+  repeat while (Jumlah > stok tersedia?)
+  :Simpan/perbarui distribusi;
+  :Sesuaikan stok produk;
+elseif (Aksi?) then (Cari)
+  :Tampilkan distribusi\nsesuai kata kunci;
+else (Hapus)
+  :Hapus distribusi;
+  :Kembalikan stok produk;
+endif
+
+|Admin|
+:Melihat daftar distribusi terbaru;
+stop
+
+@enduml
