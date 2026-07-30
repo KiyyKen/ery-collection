@@ -2,7 +2,7 @@
 
 !include ../theme.puml
 
-title ERD - Sistem Distribusi Yeri Collection
+title ERD - Sistem Distribusi Yery Collection
 
 entity "users" as users {
   * id : bigint <<PK>>

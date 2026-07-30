@@ -2,7 +2,7 @@
 
 !include ../theme.puml
 
-title Class Diagram - Sistem Distribusi Yeri Collection
+title Class Diagram - Sistem Distribusi Yery Collection
 
 class User {
   + id : bigint

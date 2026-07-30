@@ -1,6 +1,6 @@
-# Sistem Distribusi Yeri Collection
+# Sistem Distribusi Yery Collection
 
-**Implementasi Sistem Distribusi untuk Memprediksi Produk Terlaris dengan Algoritma C4.5 Berbasis Website pada Toko Yeri Collection**
+**Implementasi Sistem Distribusi untuk Memprediksi Produk Terlaris dengan Algoritma C4.5 Berbasis Website pada Toko Yery Collection**
 
 ![PHP](https://img.shields.io/badge/PHP-%5E8.2-777BB4?logo=php&logoColor=white)
 ![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?logo=laravel&logoColor=white)
@@ -10,11 +10,11 @@
 
 ## Deskripsi Singkat
 
-Aplikasi web untuk mengelola pencatatan distribusi barang keluar pada Toko Yeri Collection (usaha grosir celana anak), sekaligus memprediksi produk terlaris menggunakan algoritma klasifikasi C4.5 berdasarkan data historis distribusi. Dibangun dengan Laravel 12 sebagai project skripsi (tugas akhir), dengan satu aktor pengguna (Admin/Pemilik Toko).
+Aplikasi web untuk mengelola pencatatan distribusi barang keluar pada Toko Yery Collection (usaha grosir celana anak), sekaligus memprediksi produk terlaris menggunakan algoritma klasifikasi C4.5 berdasarkan data historis distribusi. Dibangun dengan Laravel 12 sebagai project skripsi (tugas akhir), dengan satu aktor pengguna (Admin/Pemilik Toko).
 
 ## Latar Belakang
 
-Pencatatan distribusi barang di Toko Yeri Collection selama ini dilakukan secara manual di buku catatan. Cara ini membuat data mudah hilang atau rusak, rekapitulasi memakan waktu lama, dan penentuan produk yang dianggap laris hanya mengandalkan ingatan serta perkiraan pribadi pemilik toko — tanpa dasar data yang objektif. Sistem ini dibangun untuk menggantikan proses tersebut dengan pencatatan digital yang terstruktur, dilengkapi analisis prediksi produk terlaris berbasis algoritma C4.5 agar keputusan pengisian ulang stok (restock) dapat diambil berdasarkan data historis, bukan perkiraan.
+Pencatatan distribusi barang di Toko Yery Collection selama ini dilakukan secara manual di buku catatan. Cara ini membuat data mudah hilang atau rusak, rekapitulasi memakan waktu lama, dan penentuan produk yang dianggap laris hanya mengandalkan ingatan serta perkiraan pribadi pemilik toko — tanpa dasar data yang objektif. Sistem ini dibangun untuk menggantikan proses tersebut dengan pencatatan digital yang terstruktur, dilengkapi analisis prediksi produk terlaris berbasis algoritma C4.5 agar keputusan pengisian ulang stok (restock) dapat diambil berdasarkan data historis, bukan perkiraan.
 
 ## Preview
 
@@ -131,7 +131,7 @@ php artisan migrate:fresh --seed
 Seeder akan mengisi:
 
 - 1 akun Admin.
-- **15 data produk asli Toko Yeri Collection** (nama, kategori, ukuran, harga, dan stok sesuai hasil wawancara langsung dengan pemilik toko, satuan dalam lusin).
+- **15 data produk asli Toko Yery Collection** (nama, kategori, ukuran, harga, dan stok sesuai hasil wawancara langsung dengan pemilik toko, satuan dalam lusin).
 - Data distribusi historis dengan **fixed random seed**, sehingga setiap `migrate:fresh --seed` selalu menghasilkan dataset yang identik dan hasil klasifikasi C4.5 dapat direproduksi secara konsisten.
 
 ## Menjalankan Aplikasi

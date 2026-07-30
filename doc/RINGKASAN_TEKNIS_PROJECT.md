@@ -1,4 +1,4 @@
-# Ringkasan Teknis Project — Sistem Distribusi Yeri Collection
+# Ringkasan Teknis Project — Sistem Distribusi Yery Collection
 
 > Dokumen ini disusun agar AI/asisten lain dapat memahami keseluruhan project tanpa membaca seluruh source code. Seluruh isi di bawah diverifikasi langsung terhadap source code aktual per Juli 2026 (migration, model, controller, request, service, seeder, route, view). Bagian yang tidak dapat diverifikasi dari kode (mis. metode SDLC) ditandai secara eksplisit.
 
@@ -6,12 +6,12 @@
 
 # 1. Gambaran Umum Project
 
-- **Nama project**: Sistem Distribusi Yeri Collection — judul skripsi: "Implementasi Sistem Distribusi untuk Memprediksi Produk Terlaris dengan Algoritma C4.5 Berbasis Website pada Toko Yeri Collection".
+- **Nama project**: Sistem Distribusi Yery Collection — judul skripsi: "Implementasi Sistem Distribusi untuk Memprediksi Produk Terlaris dengan Algoritma C4.5 Berbasis Website pada Toko Yery Collection".
 - **Tujuan sistem**: mendigitalisasi pencatatan distribusi barang keluar toko grosir celana anak, dan memprediksi produk terlaris menggunakan algoritma C4.5 berbasis data historis distribusi, sebagai dasar objektif keputusan restock.
 - **Permasalahan yang diselesaikan**: pencatatan manual di buku (mudah hilang/rusak), rekapitulasi lambat, dan penentuan produk laris hanya berdasarkan ingatan/perkiraan pemilik toko tanpa dasar data.
 - **Metode SDLC**: **tidak dapat diverifikasi dari source code** — ini keputusan metodologi penelitian, bukan artefak kode. Berdasarkan pernyataan pengguna, metode yang dipakai adalah **Waterfall**. Catatan pendukung (bukan bukti langsung): seluruh proses pengembangan sistem ini (bersama AI assistant) memang dijalankan secara berurutan dan bergerbang — analisis kebutuhan → ERD → UML → implementasi bertahap (4.1 migration/model/seeder → 4.2 route/controller/request → 4.3 view → 4.4 algoritma), masing-masing menunggu persetujuan eksplisit sebelum lanjut ke tahap berikutnya, tanpa pernah mundur mengubah tahap sebelumnya — pola ini konsisten dengan karakteristik Waterfall (sekuensial, tidak iteratif).
 - **Algoritma yang digunakan**: C4.5 (decision tree), diimplementasikan manual dalam PHP (bukan library ML pihak ketiga), menggunakan Gain Ratio (bukan Information Gain biasa seperti ID3) sebagai kriteria pemilihan atribut split — inilah ciri pembeda C4.5 dari ID3.
-- **Studi kasus penelitian**: Toko Yeri Collection, usaha grosir celana anak, dengan data uji coba 20 produk dan 109 transaksi distribusi (periode Januari–Juni 2026, dibangkitkan lewat seeder, lihat Bagian 3 & 12).
+- **Studi kasus penelitian**: Toko Yery Collection, usaha grosir celana anak, dengan data uji coba 20 produk dan 109 transaksi distribusi (periode Januari–Juni 2026, dibangkitkan lewat seeder, lihat Bagian 3 & 12).
 
 ---
 
