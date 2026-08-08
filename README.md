@@ -18,20 +18,40 @@ Pencatatan distribusi barang di Toko Yery Collection selama ini dilakukan secara
 
 ## Preview
 
-**Dashboard**
+<details>
+<summary>Dashboard</summary>
+
 ![Dashboard](docs/images/dashboard.png)
 
-**Data Produk**
+</details>
+
+<details>
+<summary>Data Produk</summary>
+
 ![Data Produk](docs/images/products.png)
 
-**Distribusi (Barang Keluar)**
+</details>
+
+<details>
+<summary>Distribusi (Barang Keluar)</summary>
+
 ![Distribusi](docs/images/distribution.png)
 
-**Prediksi Produk Terlaris**
+</details>
+
+<details>
+<summary>Prediksi Produk Terlaris</summary>
+
 ![Prediksi](docs/images/prediction.png)
 
-**Laporan Distribusi**
+</details>
+
+<details>
+<summary>Laporan Distribusi</summary>
+
 ![Laporan](docs/images/report.png)
+
+</details>
 
 ## Fitur Utama
 
